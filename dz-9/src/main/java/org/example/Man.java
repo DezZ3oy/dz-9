@@ -11,7 +11,7 @@ public class Man extends Person {
 
     public void registerPartnership(Woman woman) {
         if (this.partner != null || woman.getPartner() != null) {
-            System.out.println("One of the partners is already married!");
+            System.out.println("Один з партнерів вже заручений!");
             return;
         }
         this.partner = woman;
