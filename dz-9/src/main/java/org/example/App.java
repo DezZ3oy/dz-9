@@ -42,10 +42,10 @@ public class App {
             Woman woman = women[i];
 
             man.registerPartnership(woman);
-            System.out.println(woman.getFirstName() + " змінила своє прізвище після одруження: " + woman.getLastName());
+            System.out.println(woman.getFirstName() + " змінила своє прізвище після одруження на: " + woman.getLastName());
 
             man.deregisterPartnership(true);
-            System.out.println(woman.getFirstName() + " повернула своє прізвище після розлучення: " + woman.getLastName());
+            System.out.println(woman.getFirstName() + " повернула своє прізвище після розлучення на: " + woman.getLastName());
         }
         System.out.println("------------------------------------------------------------------------");
     }
