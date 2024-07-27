@@ -1,0 +1,51 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n  <modelVersion>4.0.0</modelVersion>\r\n\r\n  <groupId>org.example</groupId>\r\n  <artifactId>dz-9</artifactId>\r\n  <version>1.0-SNAPSHOT</version>\r\n  <packaging>jar</packaging>\r\n\r\n  <name>dz-9</name>\r\n  <url>http://maven.apache.org</url>\r\n\r\n  <properties>\r\n    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n  </properties>\r\n\r\n  <dependencies>\r\n    <dependency>\r\n      <groupId>junit</groupId>\r\n      <artifactId>junit</artifactId>\r\n      <version>3.8.1</version>\r\n      <scope>test</scope>\r\n    </dependency>\r\n  </dependencies>\r\n</project>\r\n
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	
++++ b/pom.xml	
+@@ -15,6 +15,25 @@
+   </properties>
+ 
+   <dependencies>
++    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
++    <dependency>
++      <groupId>org.testng</groupId>
++      <artifactId>testng</artifactId>
++      <version>7.10.2</version>
++      <scope>test</scope>
++    </dependency>
++
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>slf4j-api</artifactId>
++      <version>1.7.36</version>
++    </dependency>
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>slf4j-simple</artifactId>
++      <version>1.7.36</version>
++    </dependency>
++
+     <dependency>
+       <groupId>junit</groupId>
+       <artifactId>junit</artifactId>
+Index: src/main/java/org/example/Man.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\npublic class Man extends Person {\r\n    public Man(String firstName, String lastName, int age) {\r\n        super(firstName, lastName, age);\r\n    }\r\n\r\n    public boolean isRetired() {\r\n        return this.age > 65;\r\n    }\r\n\r\n    public void registerPartnership(Woman woman) {\r\n        if (this.partner != null || woman.getPartner() != null) {\r\n            System.out.println(\"One of the partners is already married!\");\r\n            return;\r\n        }\r\n        this.partner = woman;\r\n        woman.setPartner(this);\r\n        woman.setLastName(this.lastName);\r\n    }\r\n\r\n    public void deregisterPartnership(boolean returnToMaidenName) {\r\n        if (this.partner instanceof Woman) {\r\n            Woman womanPartner = (Woman) this.partner;\r\n            if (returnToMaidenName) {\r\n                womanPartner.setLastName(womanPartner.getOriginalLastName());\r\n            }\r\n            womanPartner.setPartner(null);\r\n        }\r\n        this.partner = null;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/org/example/Man.java b/src/main/java/org/example/Man.java
+--- a/src/main/java/org/example/Man.java	
++++ b/src/main/java/org/example/Man.java	
+@@ -11,7 +11,7 @@
+ 
+     public void registerPartnership(Woman woman) {
+         if (this.partner != null || woman.getPartner() != null) {
+-            System.out.println("One of the partners is already married!");
++            System.out.println("Один з партнерів вже заручений!");
+             return;
+         }
+         this.partner = woman;
