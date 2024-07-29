@@ -1,0 +1,239 @@
+Index: src/test/java/org/example/AppTest.java
+===================================================================
+diff --git a/src/test/java/org/example/AppTest.java b/src/test/java/org/example/AppTest.java
+deleted file mode 100644
+--- a/src/test/java/org/example/AppTest.java	
++++ /dev/null	
+@@ -1,38 +0,0 @@
+-package org.example;
+-
+-import junit.framework.Test;
+-import junit.framework.TestCase;
+-import junit.framework.TestSuite;
+-
+-/**
+- * Unit test for simple App.
+- */
+-public class AppTest 
+-    extends TestCase
+-{
+-    /**
+-     * Create the test case
+-     *
+-     * @param testName name of the test case
+-     */
+-    public AppTest( String testName )
+-    {
+-        super( testName );
+-    }
+-
+-    /**
+-     * @return the suite of tests being tested
+-     */
+-    public static Test suite()
+-    {
+-        return new TestSuite( AppTest.class );
+-    }
+-
+-    /**
+-     * Rigourous Test :-)
+-     */
+-    public void testApp()
+-    {
+-        assertTrue( true );
+-    }
+-}
+Index: src/test/java/resources/testng.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/resources/testng.xml b/src/test/java/resources/testng.xml
+new file mode 100644
+--- /dev/null	
++++ b/src/test/java/resources/testng.xml	
+@@ -0,0 +1,10 @@
++<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
++<suite name="Full Suite">
++    <test name="Full Test">
++        <classes>
++            <class name="org.example.ManTest"/>
++            <class name="org.example.WomanTest"/>
++            <class name="org.example.PersonTest"/>
++        </classes>
++    </test>
++</suite>
+Index: src/test/java/resources/testng-getter-setter.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/resources/testng-getter-setter.xml b/src/test/java/resources/testng-getter-setter.xml
+new file mode 100644
+--- /dev/null	
++++ b/src/test/java/resources/testng-getter-setter.xml	
+@@ -0,0 +1,22 @@
++<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
++<suite name="Getter Setter Suite">
++    <test name="Getter Setter Test">
++        <classes>
++            <class name="org.example.ManTest">
++                <methods>
++                    <include name="testSettersAndGetters"/>
++                </methods>
++            </class>
++            <class name="org.example.WomanTest">
++                <methods>
++                    <include name="testSettersAndGetters"/>
++                </methods>
++            </class>
++            <class name="org.example.PersonTest">
++                <methods>
++                    <include name="testSettersAndGetters"/>
++                </methods>
++            </class>
++        </classes>
++    </test>
++</suite>
+Index: src/test/java/org/example/WomanTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/example/WomanTest.java b/src/test/java/org/example/WomanTest.java
+new file mode 100644
+--- /dev/null	
++++ b/src/test/java/org/example/WomanTest.java	
+@@ -0,0 +1,34 @@
++package org.example;
++
++import org.testng.Assert;
++import org.testng.annotations.Test;
++
++public class WomanTest {
++
++    @Test
++    public void testIsRetired() {
++        Woman youngWoman = new Woman("Ганна", "Сидорова", 28);
++        Woman oldWoman = new Woman("Марія", "Іванова", 65);
++
++        Assert.assertFalse(youngWoman.isRetired(), "Молода жінка не повинна бути на пенсії");
++        Assert.assertTrue(oldWoman.isRetired(), "Старенька повинна піти на пенсію");
++    }
++
++    @Test
++    public void testSettersAndGetters() {
++        Woman woman = new Woman("Ганна", "Сидорова", 28);
++        woman.setFirstName("Олена");
++        woman.setLastName("Пилипенко");
++        woman.setAge(35);
++
++        Assert.assertEquals(woman.getFirstName(), "Олена", "Ім'я має бути Олена");
++        Assert.assertEquals(woman.getLastName(), "Пилипенко", "Прізвище має бути Пилипенко");
++        Assert.assertEquals(woman.getAge(), 35, "Вік повинен бути 35");
++    }
++
++    @Test
++    public void testOriginalLastName() {
++        Woman woman = new Woman("Ганна", "Сидорова", 28);
++        Assert.assertEquals(woman.getOriginalLastName(), "Сидорова", "Оригінальне прізвище має бути Сидорова");
++    }
++}
+Index: src/test/java/org/example/PersonTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/example/PersonTest.java b/src/test/java/org/example/PersonTest.java
+new file mode 100644
+--- /dev/null	
++++ b/src/test/java/org/example/PersonTest.java	
+@@ -0,0 +1,28 @@
++package org.example;
++
++import org.testng.Assert;
++import org.testng.annotations.Test;
++
++public class PersonTest {
++
++    @Test
++    public void testSettersAndGetters() {
++        Person person = new Person("Олександр", "Джонсон", 40);
++        person.setFirstName("Олег");
++        person.setLastName("Пауль");
++        person.setAge(45);
++
++        Assert.assertEquals(person.getFirstName(), "Олег", "Ім'я має бути Олег");
++        Assert.assertEquals(person.getLastName(), "Пауль", "Прізвище має бути Пауль");
++        Assert.assertEquals(person.getAge(), 45, "Вік повинен бути 45");
++    }
++
++    @Test
++    public void testPartner() {
++        Person person1 = new Person("Остап", "Хоменко", 40);
++        Person person2 = new Person("Соломія", "Фещенко", 35);
++
++        person1.setPartner(person2);
++        Assert.assertEquals(person1.getPartner(), person2, "Партнером має бути person2");
++    }
++}
+Index: src/test/java/org/example/ManTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/example/ManTest.java b/src/test/java/org/example/ManTest.java
+new file mode 100644
+--- /dev/null	
++++ b/src/test/java/org/example/ManTest.java	
+@@ -0,0 +1,50 @@
++package org.example;
++
++import org.testng.Assert;
++import org.testng.annotations.Test;
++
++public class ManTest {
++
++    @Test
++    public void testIsRetired() {
++        Man youngMan = new Man("Ігнат", "Фещенко", 30);
++        Man oldMan = new Man("Василь", "Кудрицький", 70);
++        Assert.assertFalse(youngMan.isRetired(), "Молода людина не повинна бути на пенсії");
++        Assert.assertTrue(oldMan.isRetired(), "Старий повинен піти на пенсію");
++    }
++
++    @Test
++    public void testRegisterPartnership() {
++        Man man = new Man("Кирило", "Пацюк", 30);
++        Woman woman = new Woman("Ганна", "Лещенко", 28);
++
++        man.registerPartnership(woman);
++        Assert.assertEquals(woman.getPartner(), man, "Партнером має бути чоловік");
++        Assert.assertEquals(man.getPartner(), woman, "Партнером має бути жінка");
++        Assert.assertEquals(woman.getLastName(), man.getLastName(), "Прізвище має збігатися з прізвищем чоловіка");
++    }
++
++    @Test
++    public void testDeregisterPartnership() {
++        Man man = new Man("Володимир", "Гонець", 30);
++        Woman woman = new Woman("Ліля", "Пилипенко", 28);
++
++        man.registerPartnership(woman);
++        man.deregisterPartnership(true);
++        Assert.assertNull(man.getPartner(), "Партнер чоловіка повинен бути нульовим");
++        Assert.assertNull(woman.getPartner(), "Партнер жінки повинен бути нульовим");
++        Assert.assertEquals(woman.getLastName(), "Пилипенко", "Прізвище має бути оригінальним");
++    }
++
++    @Test
++    public void testSettersAndGetters() {
++        Man man = new Man("Семен", "Хорець", 30);
++        man.setFirstName("Євген");
++        man.setLastName("Васильченко");
++        man.setAge(35);
++
++        Assert.assertEquals(man.getFirstName(), "Євген", "Ім'я має бути Євген");
++        Assert.assertEquals(man.getLastName(), "Васильченко", "Прізвище має бути Васильченко");
++        Assert.assertEquals(man.getAge(), 35, "Вік повинен бути 35");
++    }
++}
